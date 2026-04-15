@@ -2,6 +2,16 @@
 """
 Governance check for personal-os repo.
 Enforces structural and content quality standards.
+
+This script is the enforcement arm of personal-os governance.
+Human-readable rules and policy are in: docs/governance/rules.md
+
+Important: If you change the behavior of this script, also update:
+  - docs/governance/rules.md (document what changed)
+  - docs/governance/change-log.md (date and reason for the change)
+  - Commit all three changes together.
+
+For details on governance philosophy, see: docs/governance/README.md
 """
 
 import os

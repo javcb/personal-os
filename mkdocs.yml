@@ -1,0 +1,70 @@
+site_name: Personal OS
+site_description: A private personal knowledge system built on GitHub + MkDocs
+site_author: javcb
+docs_dir: docs
+site_dir: site
+
+theme:
+  name: material
+  palette:
+    - scheme: slate
+      primary: indigo
+      accent: indigo
+      toggle:
+        icon: material/brightness-7
+        name: Switch to light mode
+    - scheme: default
+      primary: indigo
+      accent: indigo
+      toggle:
+        icon: material/brightness-4
+        name: Switch to dark mode
+  features:
+    - navigation.instant
+    - navigation.tracking
+    - navigation.tabs
+    - content.code.copy
+
+nav:
+  - Home: index.md
+  - Domains: domains/
+  - Knowledge Extracts: knowledge-extracts/
+  - Pipelines: pipelines/
+  - Skills: skills/
+  - Templates: templates/
+
+plugins:
+  - search
+  - exclude:
+      glob:
+        - _core/*
+        - "*/.gitkeep"
+
+markdown_extensions:
+  - abbr
+  - admonition
+  - attr_list
+  - def_list
+  - footnotes
+  - md_in_html
+  - meta
+  - tables
+  - toc:
+      permalink: true
+  - pymdownx.arithmatex
+  - pymdownx.betterem
+  - pymdownx.caret
+  - pymdownx.details
+  - pymdownx.emoji
+  - pymdownx.highlight
+  - pymdownx.inlinehilite
+  - pymdownx.keys
+  - pymdownx.mark
+  - pymdownx.smartsymbols
+  - pymdownx.superfences
+  - pymdownx.tasklist:
+      custom_checkbox: true
+  - pymdownx.tilde
+
+exclude_docs: |
+  _core/

@@ -8,3 +8,9 @@ Use this to understand major architectural choices and when they were made.
 
 [2026-04-15]: Repo structure initialized with _core/ context vault, docs/ knowledge base, and governance scripts to enforce quality standards.
 Reason: Establish clear separation between mutable context (_core/) and permanent knowledge (docs/), with automated checks to maintain integrity.
+
+[2026-04-15]: Pre-commit hook and governance checks verified as working; attempted root-level violation was correctly rejected.
+Reason: Ensure governance system is active and will prevent accidental structural violations during normal development.
+
+[2026-04-15]: Fixed pre-commit hook shebang to #!/bin/sh and added explicit python path detection for GitHub Desktop compatibility.
+Reason: GitHub Desktop doesn't inherit shell PATH, causing python3 lookup to fail; using which to find python explicitly prevents silent failures.

@@ -18,6 +18,7 @@ if sys.platform == "win32":
 def check_root_md_files():
     """Check 1: No .md files at root except README.md, CLAUDE.md, inbox.md, DECISIONS.md"""
     root = Path(".")
+    # DECISIONS.md is a root-level structural log, not a content file—it must stay at root
     allowed = {"README.md", "CLAUDE.md", "inbox.md", "DECISIONS.md"}
     violations = []
 

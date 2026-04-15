@@ -4,14 +4,14 @@ Governance check for personal-os repo.
 Enforces structural and content quality standards.
 
 This script is the enforcement arm of personal-os governance.
-Human-readable rules and policy are in: docs/governance/rules.md
+Human-readable rules and policy are in: docs/governance/GOVERNANCE-RULES.md
 
 Important: If you change the behavior of this script, also update:
-  - docs/governance/rules.md (document what changed)
-  - docs/governance/change-log.md (date and reason for the change)
+  - docs/governance/GOVERNANCE-RULES.md (document what changed)
+  - docs/governance/GOVERNANCE-CHANGE-LOG.md (date and reason for the change)
   - Commit all three changes together.
 
-For details on governance philosophy, see: docs/governance/README.md
+For details on governance philosophy, see: docs/governance/GOVERNANCE-README.md
 """
 
 import os
@@ -25,51 +25,95 @@ if sys.platform == "win32":
     import io
     sys.stdout = io.TextIOWrapper(sys.stdout.buffer, encoding='utf-8')
 
+# Governance configuration: root-level files allowed by policy
+ROOT_ALLOWED_FILES = {
+    "README.md",           # Repo overview
+    "CLAUDE.md",           # AI tool instructions
+    "inbox.md",            # Unprocessed ideas
+    "DECISIONS.md",        # Architectural decision log
+    ".gitattributes",      # Git configuration
+}
+
+# Governance singletons: files that must appear exactly once (or not at all)
+# These are reserved names for central governance/structural documents
+GOVERNANCE_SINGLETONS = {
+    "GOVERNANCE-README.md",
+    "GOVERNANCE-RULES.md",
+    "GOVERNANCE-CHANGE-LOG.md",
+}
+
+# Filename pattern: lowercase kebab-case for regular content files
+# Exceptions: the explicitly reserved names above
+RESERVED_NAMES = ROOT_ALLOWED_FILES | GOVERNANCE_SINGLETONS
+
 def check_root_md_files():
-    """Check 1: No .md files at root except README.md, CLAUDE.md, inbox.md, DECISIONS.md"""
+    """Check 1: Root-level .md files restricted to allowlist"""
     root = Path(".")
-    # Whitelisted root-level files: content files + config files required at root
-    # DECISIONS.md is a root-level structural log; .gitattributes is git configuration
-    allowed = {"README.md", "CLAUDE.md", "inbox.md", "DECISIONS.md", ".gitattributes"}
     violations = []
 
-    # Check .md files
     for file in root.glob("*.md"):
-        if file.name not in allowed:
-            violations.append(f"Root .md file not allowed: {file.name}")
+        if file.name not in ROOT_ALLOWED_FILES:
+            violations.append(
+                f"Root .md file '{file.name}' not allowed. "
+                f"Allowed: {', '.join(sorted(ROOT_ALLOWED_FILES))}. "
+                f"See docs/governance/GOVERNANCE-RULES.md Section 2."
+            )
 
     # Check .gitattributes
     gitattributes = root / ".gitattributes"
-    if gitattributes.exists() and gitattributes.name not in allowed:
-        violations.append(f"Root config file not allowed: {gitattributes.name}")
+    if gitattributes.exists() and gitattributes.name not in ROOT_ALLOWED_FILES:
+        violations.append(
+            f"Root config file '{gitattributes.name}' not allowed. "
+            f"See docs/governance/GOVERNANCE-RULES.md Section 2."
+        )
 
     return violations
 
 def check_duplicate_filenames():
-    """Check 2: No duplicate filenames anywhere in the repo"""
+    """Check 2: No duplicate filenames repo-wide (except .gitkeep)"""
     filenames = defaultdict(list)
     violations = []
-    # Intentional duplicates: directory-scoped files are allowed (README.md per dir)
-    ignore_files = {".gitkeep", "README.md", "index.md"}
+    # Only .gitkeep is allowed to duplicate (git convention for preserving empty dirs)
+    ignore_files = {".gitkeep"}
 
     for root, dirs, files in os.walk("."):
-        # Skip .git directory
         dirs[:] = [d for d in dirs if d != ".git"]
-
         for file in files:
             if file in ignore_files:
                 continue
-
             filenames[file].append(os.path.join(root, file))
 
     for filename, paths in filenames.items():
         if len(paths) > 1:
-            violations.append(f"Duplicate filename '{filename}' at: {', '.join(paths)}")
+            violations.append(
+                f"Duplicate filename '{filename}' found at multiple locations: {', '.join(paths)}. "
+                f"Filenames must be globally unique. See docs/governance/GOVERNANCE-RULES.md Section 3."
+            )
+
+    return violations
+
+def check_governance_singletons():
+    """Check 3: Governance singleton files must be in docs/governance/ only"""
+    violations = []
+
+    for root, dirs, files in os.walk("."):
+        dirs[:] = [d for d in dirs if d != ".git"]
+        for file in files:
+            if file in GOVERNANCE_SINGLETONS:
+                full_path = Path(root) / file
+                expected_path = Path("docs") / "governance" / file
+                # Normalize for comparison (handles Windows backslashes)
+                if full_path.resolve() != expected_path.resolve():
+                    violations.append(
+                        f"Governance singleton '{file}' found at {full_path}. "
+                        f"Must be located only in docs/governance/. "
+                        f"See docs/governance/GOVERNANCE-RULES.md Section 1."
+                    )
 
     return violations
 
 def check_frontmatter_in_docs():
-    """Check 3: Every .md in docs/ has YAML frontmatter with title, type, status"""
+    """Check 4: Every .md in docs/ has YAML frontmatter with title, type, status"""
     violations = []
     docs_path = Path("docs")
 
@@ -77,7 +121,6 @@ def check_frontmatter_in_docs():
         return violations
 
     for md_file in docs_path.rglob("*.md"):
-        # Skip .gitkeep and other non-content files
         if md_file.name in {".gitkeep"}:
             continue
 
@@ -85,14 +128,22 @@ def check_frontmatter_in_docs():
 
         # Check for YAML frontmatter
         if not content.startswith("---"):
-            violations.append(f"Missing frontmatter: {md_file}")
+            violations.append(
+                f"Missing frontmatter in {md_file}. "
+                f"All .md files in docs/ must have YAML frontmatter. "
+                f"See docs/governance/GOVERNANCE-RULES.md Section 4."
+            )
             continue
 
         # Extract frontmatter
         try:
             _, frontmatter, _ = content.split("---", 2)
         except ValueError:
-            violations.append(f"Malformed frontmatter: {md_file}")
+            violations.append(
+                f"Malformed frontmatter in {md_file}. "
+                f"Frontmatter must be enclosed in exactly two '---' delimiters. "
+                f"See docs/governance/GOVERNANCE-RULES.md Section 4."
+            )
             continue
 
         # Check required fields
@@ -106,69 +157,82 @@ def check_frontmatter_in_docs():
 
         missing = required_fields - found_fields
         if missing:
-            violations.append(f"Missing frontmatter fields {missing} in {md_file}")
+            violations.append(
+                f"Missing frontmatter fields in {md_file}: {', '.join(sorted(missing))}. "
+                f"Required fields: {', '.join(sorted(required_fields))}. "
+                f"See docs/governance/GOVERNANCE-RULES.md Section 4."
+            )
 
     return violations
 
 def check_build_artifacts():
-    """Check 4: No build artifacts (*.log, *-REPORT.md)"""
+    """Check 5: No build artifacts (.log, -REPORT.md)"""
     violations = []
 
     for root, dirs, files in os.walk("."):
         dirs[:] = [d for d in dirs if d != ".git"]
-
         for file in files:
             if file.endswith(".log") or file.endswith("-REPORT.md"):
-                violations.append(f"Build artifact found: {os.path.join(root, file)}")
+                violations.append(
+                    f"Build artifact '{os.path.join(root, file)}' found. "
+                    f"Machine-generated files (.log, -REPORT.md) are forbidden. "
+                    f"See docs/governance/GOVERNANCE-RULES.md Section 1."
+                )
 
     return violations
 
 def check_empty_stubs():
-    """Check 5: No empty stub files (under 5 meaningful lines)"""
+    """Check 6: No empty or stub .md files (must have >= 5 meaningful lines)"""
     violations = []
 
     for root, dirs, files in os.walk("."):
         dirs[:] = [d for d in dirs if d != ".git"]
-
         for file in files:
             if file.endswith(".md"):
                 filepath = os.path.join(root, file)
                 content = Path(filepath).read_text(encoding='utf-8')
 
-                # Count meaningful lines (non-empty, non-whitespace)
+                # Count meaningful lines (non-empty, non-whitespace, non-comment)
                 meaningful_lines = [
                     line for line in content.split("\n")
                     if line.strip() and not line.strip().startswith("#")
                 ]
 
-                # Skip if it's a frontmatter-only file (this is acceptable)
+                # Skip if it's frontmatter-only (acceptable placeholder)
                 if content.startswith("---"):
                     continue
 
                 if len(meaningful_lines) < 5 and content.strip():
                     # Only flag if it's not just frontmatter
                     if not (content.count("---") >= 2):
-                        violations.append(f"Stub file too short: {filepath} ({len(meaningful_lines)} meaningful lines)")
+                        violations.append(
+                            f"Stub file {filepath} has only {len(meaningful_lines)} meaningful lines. "
+                            f"All .md files must have at least 5 meaningful lines (frontmatter-only files exempt). "
+                            f"See docs/governance/GOVERNANCE-RULES.md Section 5."
+                        )
 
     return violations
 
 def check_broken_links():
-    """Check 6: Broken internal links (report only, don't fail)"""
-    warnings = []
+    """Check 7: Broken internal markdown links are now failures (not warnings)"""
+    violations = []
 
     for root, dirs, files in os.walk("."):
         dirs[:] = [d for d in dirs if d != ".git"]
-
         for file in files:
             if file.endswith(".md"):
                 filepath = os.path.join(root, file)
                 content = Path(filepath).read_text(encoding='utf-8')
 
+                # Remove inline code blocks (text between backticks) to avoid false positives
+                # e.g., `[example](path)` should not be treated as a real markdown link
+                content_without_code = re.sub(r'`[^`]*`', '', content)
+
                 # Find markdown links: [text](path)
-                links = re.findall(r'\[([^\]]+)\]\(([^)]+)\)', content)
+                links = re.findall(r'\[([^\]]+)\]\(([^)]+)\)', content_without_code)
 
                 for text, link in links:
-                    # Skip external links
+                    # Skip external links and anchors
                     if link.startswith("http") or link.startswith("#"):
                         continue
 
@@ -176,9 +240,37 @@ def check_broken_links():
                     target = Path(root) / link
 
                     if not target.exists():
-                        warnings.append(f"Broken link in {filepath}: [{text}]({link})")
+                        violations.append(
+                            f"Broken link in {filepath}: [{text}]({link}) → target does not exist. "
+                            f"All internal links must point to existing files. "
+                            f"See docs/governance/GOVERNANCE-RULES.md Section 5."
+                        )
 
-    return warnings
+    return violations
+
+def check_naming_conventions():
+    """Check 8: Markdown filenames follow kebab-case (except reserved names)"""
+    violations = []
+
+    for root, dirs, files in os.walk("."):
+        dirs[:] = [d for d in dirs if d != ".git"]
+        for file in files:
+            if file.endswith(".md"):
+                # Skip reserved/singleton names (allowed to be uppercase)
+                if file in RESERVED_NAMES:
+                    continue
+
+                # Check if filename is kebab-case (lowercase, hyphens, alphanumerics)
+                # Pattern: lowercase, numbers, hyphens only; no spaces, underscores, CamelCase
+                if not re.match(r'^[a-z0-9]+(-[a-z0-9]+)*\.md$', file):
+                    violations.append(
+                        f"Filename '{file}' does not follow kebab-case convention. "
+                        f"Use lowercase with hyphens: e.g., 'my-file.md' not 'MyFile.md' or 'my_file.md'. "
+                        f"Exceptions: reserved names ({', '.join(sorted(RESERVED_NAMES))}). "
+                        f"See docs/governance/GOVERNANCE-RULES.md Section 3."
+                    )
+
+    return violations
 
 def main():
     """Run all checks and report violations"""
@@ -186,11 +278,14 @@ def main():
     all_warnings = []
 
     checks = [
-        ("Root .md files", check_root_md_files),
+        ("Root-level files", check_root_md_files),
         ("Duplicate filenames", check_duplicate_filenames),
+        ("Governance singletons", check_governance_singletons),
         ("Docs frontmatter", check_frontmatter_in_docs),
         ("Build artifacts", check_build_artifacts),
         ("Empty stubs", check_empty_stubs),
+        ("Broken links", check_broken_links),
+        ("Naming conventions", check_naming_conventions),
     ]
 
     # Run all checks
@@ -201,16 +296,7 @@ def main():
                 for violation in violations:
                     all_violations.append((check_name, violation))
         except Exception as e:
-            all_warnings.append((check_name, str(e)))
-
-    # Collect broken links as warnings (don't fail)
-    try:
-        warnings = check_broken_links()
-        if warnings:
-            for warning in warnings:
-                all_warnings.append(("Broken links", warning))
-    except Exception as e:
-        all_warnings.append(("Broken links check", str(e)))
+            all_warnings.append((check_name, f"Check failed: {str(e)}"))
 
     # Print formatted output
     print("\n" + "=" * 72)
@@ -218,7 +304,7 @@ def main():
     if all_violations:
         print("🚫 COMMIT BLOCKED BY GOVERNANCE")
         print("=" * 72)
-        print(f"\n[FAIL] Governance violations found ({len(all_violations)} error{'s' if len(all_violations) != 1 else ''}):\n")
+        print(f"\n[FAIL] {len(all_violations)} governance violation{'s' if len(all_violations) != 1 else ''} found:\n")
 
         # Group violations by check
         violations_by_check = {}
@@ -228,29 +314,34 @@ def main():
             violations_by_check[check_name].append(violation)
 
         for check_name, violations in violations_by_check.items():
-            print(f"  {check_name}:")
+            print(f"  [{check_name}]")
             for violation in violations:
                 print(f"    • {violation}")
             print()
 
     if all_warnings:
-        print("[WARN] Governance warnings (commit not blocked):\n")
+        print("[WARN] Non-blocking warnings:\n")
         for check_name, warning in all_warnings:
-            print(f"  {check_name}:")
-            print(f"    • {warning}")
+            print(f"  {check_name}: {warning}")
             print()
 
     # Summary
     print("=" * 72)
     if all_violations:
-        print(f"[SUMMARY] {len(all_violations)} error{'s' if len(all_violations) != 1 else ''}, "
-              f"{len(all_warnings)} warning{'s' if len(all_warnings) != 1 else ''}.")
+        error_word = "error" if len(all_violations) == 1 else "errors"
+        warn_word = "warning" if len(all_warnings) == 1 else "warnings"
+        summary = f"[SUMMARY] {len(all_violations)} {error_word}"
+        if all_warnings:
+            summary += f", {len(all_warnings)} {warn_word}"
+        summary += "."
+        print(summary)
         print("\nFix the errors above and commit again.")
         print("=" * 72 + "\n")
         sys.exit(1)
     else:
         if all_warnings:
-            print(f"[SUMMARY] 0 errors, {len(all_warnings)} warning{'s' if len(all_warnings) != 1 else ''}. Commit allowed.")
+            warn_word = "warning" if len(all_warnings) == 1 else "warnings"
+            print(f"[SUMMARY] All governance checks passed. {len(all_warnings)} {warn_word}.")
         else:
             print("[SUMMARY] All governance checks passed. No errors or warnings.")
         print("=" * 72 + "\n")

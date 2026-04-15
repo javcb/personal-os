@@ -18,6 +18,8 @@ Rules are organized by category and split into two groups:
 - All `.md` files in `docs/` must have YAML frontmatter with (at minimum) `title`, `type`, and `status` fields.
 - `.md` files at the root level are forbidden, except: `README.md`, `CLAUDE.md`, `inbox.md`, `DECISIONS.md`, and `.gitattributes`.
 - Build artifacts are forbidden: no files ending in `.log` or `-REPORT.md` anywhere in the repo.
+- Governance singleton files (`GOVERNANCE-README.md`, `GOVERNANCE-RULES.md`, `GOVERNANCE-CHANGE-LOG.md`) must be located exclusively in `docs/governance/`.
+- Broken internal markdown links now block commits (enforced via `check_broken_links`).
 
 ### Planned rules
 
@@ -50,14 +52,18 @@ Rules are organized by category and split into two groups:
 
 ### Active rules
 
-- (TBD / Confirm later) Duplicate filenames are forbidden throughout the repo, with exceptions:
-  - `.gitkeep` (allowed in any directory)
-  - `README.md` (allowed once per directory)
-  - `index.md` (allowed in multiple documentation directories)
+- **Duplicate filenames are forbidden repo-wide by default.** All filenames must be globally unique.
+- **Only exception: `.gitkeep`** (git convention for preserving empty directories).
+- Markdown files must use **lowercase kebab-case** naming (e.g., `academic-context.md`, not `AcademicContext.md` or `academic_context.md`).
+  - Exception: Reserved/singleton names are allowed to be uppercase (e.g., `README.md`, `GOVERNANCE-RULES.md`).
+  - Reserved names: `README.md`, `CLAUDE.md`, `inbox.md`, `DECISIONS.md`, `.gitattributes`, `GOVERNANCE-README.md`, `GOVERNANCE-RULES.md`, `GOVERNANCE-CHANGE-LOG.md`.
+- Rationale: 
+  - Globally unique filenames improve clarity for humans and AI. They reduce ambiguity during retrieval.
+  - Consistent naming conventions (kebab-case) make files discoverable and predictable.
+  - Reserved uppercase names signal structural importance (e.g., governance, configuration, decision logs).
 
 ### Planned rules
 
-- (Speculative) File slugs should use kebab-case (e.g., `academic-context.md`, not `AcademicContext.md`). Not yet enforced.
 - (TBD) Directory names follow the same kebab-case pattern. Not yet enforced.
 
 ---
@@ -82,8 +88,9 @@ Rules are organized by category and split into two groups:
 ### Active rules
 
 - Empty or stub files are forbidden: all `.md` files must have at least 5 meaningful lines (non-empty, non-comment lines).
-- **Exception**: Files containing only YAML frontmatter (no body content) are allowed (e.g., placeholder files that will be filled later).
-- Broken internal links are **not** enforced; they are reported as warnings and do not block commits.
+  - **Exception**: Files containing only YAML frontmatter (no body content) are allowed (e.g., placeholder files that will be filled later).
+- **Broken internal markdown links now block commits.** All markdown links (in format `[description](relative/path)`) must point to files that exist. External links (http/https) and anchors (#) are skipped.
+  - Rationale: Broken links degrade usability and documentation quality. Fix them before committing.
 
 ### Planned rules
 
@@ -96,7 +103,7 @@ Rules are organized by category and split into two groups:
 1. If you're adding a new **active rule** (code enforcement):
    - Add it to this file under the relevant category, with a clear description.
    - Implement the check in `scripts/governance-check.py`.
-   - Update `docs/governance/change-log.md` with date, rule name, and reason.
+   - Update `docs/governance/GOVERNANCE-CHANGE-LOG.md` with date, rule name, and reason.
    - Test the check locally before committing.
 
 2. If you're adding a **planned rule** (future enforcement):

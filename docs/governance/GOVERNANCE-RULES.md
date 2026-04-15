@@ -11,6 +11,43 @@ Rules are organized by category and split into two groups:
 - **Active rules**: Currently enforced by `scripts/governance-check.py`. Violations block commits.
 - **Planned rules**: Documented intent for future enforcement. Not yet enforced. Marked clearly as TBD.
 
+---
+
+## Governance v1 — Current Scope
+
+**Governance v1** focuses on structural hygiene and establishing a clear governance subtree pattern. The following are currently enforced:
+
+- **Root-level file restrictions**: Explicit allowlist of `.md` files permitted at repo root
+- **Globally unique filenames**: No duplicates repo-wide (except `.gitkeep`)
+- **Docs frontmatter**: Required YAML metadata (title, type, status) in docs/
+- **No build artifacts**: Blocks `.log` and `-REPORT.md` files
+- **Content completeness**: Minimum 5 meaningful lines per `.md` file (frontmatter-only exempted)
+- **Link integrity**: All internal Markdown links must point to existing files
+- **Naming conventions**: Lowercase kebab-case for normal files; reserved uppercase names for special documents
+- **Governed subtrees**: Established pattern and enforcement for docs/governance/ as the only designated governed subtree
+
+Governance v1 is about **structure and place**, not yet about deep content semantics, authorship metadata, or domain-specific schema validation.
+
+---
+
+## Not Yet Governed (Explicitly Deferred)
+
+The following ideas are intentionally **not** implemented in Governance v1. These are captured here so Future Javier can prioritize them later:
+
+- **_core/ as a governed subtree**: Could have CORE-README.md, CORE-RULES.md, CORE-CHANGE-LOG.md for context vault governance
+- **Additional governed subtrees**: docs/pipelines/, docs/templates/, docs/knowledge-extracts/, docs/domains/, etc.
+- **Review-by enforcement**: Warning when review-by: dates are overdue (requires timestamp checks)
+- **Type-specific schemas**: Extra required frontmatter fields for type: pipeline, type: knowledge-extract, type: meta-skill, type: domain-context, etc.
+- **No orphan docs**: Enforce that every non-template doc is reachable from some index or overview
+- **Content-level linting**: Grammar, style, tone consistency beyond structural frontmatter
+- **Authorship tracking**: Enforcing author: or authored-by: fields in context files
+- **Vault-specific rules**: Special handling for _core/ files (frozen content, immutability markers, etc.)
+- **Domain enforcement**: Ensuring files are in the correct domain folder based on frontmatter domain: field
+
+These are valid future enhancements but are parked to keep Governance v1 lean and focused.
+
+---
+
 ## 1. Repository Layout & File Placement
 
 ### Active rules
@@ -164,3 +201,32 @@ Other directories (e.g., `_core/`, `docs/pipelines/`) may become governed subtre
    - Update the code (if active rule).
    - Update the change-log.
    - Commit all three together.
+
+---
+
+## Governance Backlog
+
+This section tracks governance enhancements intentionally deferred from v1. These are not yet implemented but represent likely future improvements. See "Not Yet Governed (Explicitly Deferred)" above for descriptions.
+
+**Backlog items (in rough priority order):**
+
+1. **Make _core/ a governed subtree** — Establish CORE-README.md, CORE-RULES.md, CORE-CHANGE-LOG.md for context vault governance. Useful once context vault gets complex enough to need its own local structure.
+
+2. **Enforce review-by: dates** — Add a warning (and optionally a failure) if review-by: dates on context files are in the past. Helps identify stale guidance that needs refreshing.
+
+3. **Type-specific schema enforcement** — Require additional frontmatter fields for specific file types (e.g., domain: for domain-context files, trigger: for pipeline files). Improves metadata completeness.
+
+4. **No orphan docs** — Enforce that every non-template doc is reachable from some index or overview. Prevents silent doc decay.
+
+5. **Designate additional governed subtrees** — As docs/pipelines/, docs/templates/, docs/knowledge-extracts/ mature, consider making them governed subtrees with their own manifest files.
+
+6. **Content-level linting** — Add style, grammar, or tone checks beyond frontmatter presence. Low priority unless content becomes a bottleneck.
+
+7. **Vault immutability markers** — Allow _core/ files to be marked as "frozen" so their content cannot change (only metadata/dates can be refreshed). Useful for capturing stable, decision-level content.
+
+8. **Domain enforcement** — Verify that files with domain: field are in the corresponding docs/domains/ folder structure. Prevents cross-domain contamination.
+
+**When to pick up these items:**
+- Governance v1 stabilizes the core structure and allows other work (LLM interfaces, feedback loops, domain expansion) to proceed without constant governance changes.
+- Backlog items can be tackled once structural foundation is solid.
+- Prioritize based on pain: which missing check would catch the most mistakes or save the most cognitive load?

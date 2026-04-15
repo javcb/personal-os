@@ -10,6 +10,12 @@ Record of changes to governance rules, policies, and enforcement code.
 
 ---
 
+**2026-04-15** – Governance v1 finalized and scope frozen.
+- Documented Governance v1 as the complete current scope: structural checks (root files, unique names, frontmatter, links, naming) + governed subtrees (docs/governance/ only).
+- Created "Not Yet Governed (Explicitly Deferred)" section in GOVERNANCE-RULES.md documenting backlog items: _core/ subtree, review-by enforcement, type-specific schemas, no-orphan-docs rules, additional subtrees, content linting, etc.
+- Added "Governance Backlog" section with actionable descriptions of future enhancements, prioritized for later implementation.
+- Rationale: Governance v1 stabilizes structure and permits other work (LLM interfaces, feedback loops) to proceed without constant governance churn. Backlog is visible and ordered so Future Javier can pick items deliberately, not reactively.
+
 **2026-04-15** – Completed introduction of "governed subtrees" concept: now discoverable in root README and fully documented.
 - Added "Governed Areas" section to root README.md listing all current governed subtrees and their required files.
 - Enhanced GOVERNANCE-RULES.md Section 4 with explicit step-by-step process for adding new governed subtrees in the future.

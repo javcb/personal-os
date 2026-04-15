@@ -32,3 +32,6 @@ Reason: Personal OS requires executable pipelines that convert external material
 
 [2026-04-15]: Added how-to-resume and prompt-index files so Future Javier can restart work from inside personal-os without hunting for old threads.
 Reason: Work continuity requires that resumption instructions and prompt locations live in the repo itself, not in separate chat transcripts or external notes. Created _core/how-to-resume.md (daily session pattern, next-action tracking, rules for self) and _core/context/prompt-index.md (pointer map to key prompts without duplicating full prompt text). Added orientation note to _core/roadmap.md. All files pass governance.
+
+[2026-04-15]: Froze governance at v1 (structural hygiene + docs/governance subtree) and parked governance backlog intentionally.
+Reason: Governance v1 covers structure and place (file layout, naming, frontmatter, link integrity, governed subtrees). Content-level rules (_core/ subtree, review-by dates, type-specific schemas, orphan-doc detection) are valid but deferred so other work (LLM interfaces, feedback loops, domain expansion) can proceed without constant governance churn. Backlog is explicit and prioritized in GOVERNANCE-RULES.md so Future Javier can pick items deliberately rather than reactively adding checks mid-stream.

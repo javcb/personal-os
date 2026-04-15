@@ -18,13 +18,20 @@ if sys.platform == "win32":
 def check_root_md_files():
     """Check 1: No .md files at root except README.md, CLAUDE.md, inbox.md, DECISIONS.md"""
     root = Path(".")
-    # DECISIONS.md is a root-level structural log, not a content file—it must stay at root
-    allowed = {"README.md", "CLAUDE.md", "inbox.md", "DECISIONS.md"}
+    # Whitelisted root-level files: content files + config files required at root
+    # DECISIONS.md is a root-level structural log; .gitattributes is git configuration
+    allowed = {"README.md", "CLAUDE.md", "inbox.md", "DECISIONS.md", ".gitattributes"}
     violations = []
 
+    # Check .md files
     for file in root.glob("*.md"):
         if file.name not in allowed:
             violations.append(f"Root .md file not allowed: {file.name}")
+
+    # Check .gitattributes
+    gitattributes = root / ".gitattributes"
+    if gitattributes.exists() and gitattributes.name not in allowed:
+        violations.append(f"Root config file not allowed: {gitattributes.name}")
 
     return violations
 

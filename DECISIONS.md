@@ -23,3 +23,6 @@ Reason: Personal OS needs durable skill definitions that work with any tool (AI 
 
 [2026-04-15]: Removed docs/meta-skills/ folder — duplicate of docs/skills/_custom/ per CLAUDE.md canonical path.
 Reason: Consolidate to single canonical location. CLAUDE.md defines meta-skills belong in docs/skills/_custom/. Governance verified clean.
+
+[2026-04-15]: Improved governance error messaging — blocked commits now clearly explain violations instead of failing opaquely.
+Reason: When governance checks fail, users need to understand what broke and why. Added clear headers ("🚫 COMMIT BLOCKED BY GOVERNANCE"), categorized output by check, separated FAIL (blocks) from WARN (advisory), added summary with error/warning counts. Works with terminal and GitHub Desktop.

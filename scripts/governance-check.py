@@ -71,7 +71,7 @@ def check_frontmatter_in_docs():
         if md_file.name in {".gitkeep"}:
             continue
 
-        content = md_file.read_text()
+        content = md_file.read_text(encoding='utf-8')
 
         # Check for YAML frontmatter
         if not content.startswith("---"):
@@ -123,7 +123,7 @@ def check_empty_stubs():
         for file in files:
             if file.endswith(".md"):
                 filepath = os.path.join(root, file)
-                content = Path(filepath).read_text()
+                content = Path(filepath).read_text(encoding='utf-8')
 
                 # Count meaningful lines (non-empty, non-whitespace)
                 meaningful_lines = [
@@ -152,7 +152,7 @@ def check_broken_links():
         for file in files:
             if file.endswith(".md"):
                 filepath = os.path.join(root, file)
-                content = Path(filepath).read_text()
+                content = Path(filepath).read_text(encoding='utf-8')
 
                 # Find markdown links: [text](path)
                 links = re.findall(r'\[([^\]]+)\]\(([^)]+)\)', content)
@@ -173,6 +173,7 @@ def check_broken_links():
 def main():
     """Run all checks and report violations"""
     all_violations = []
+    all_warnings = []
 
     checks = [
         ("Root .md files", check_root_md_files),
@@ -182,29 +183,67 @@ def main():
         ("Empty stubs", check_empty_stubs),
     ]
 
+    # Run all checks
     for check_name, check_func in checks:
         try:
             violations = check_func()
             if violations:
-                print(f"\n[FAIL] {check_name}:")
                 for violation in violations:
-                    print(f"  • {violation}")
-                    all_violations.append(violation)
+                    all_violations.append((check_name, violation))
         except Exception as e:
-            print(f"\n[WARN] Error in {check_name}: {e}")
+            all_warnings.append((check_name, str(e)))
 
-    # Report broken links as warnings (don't fail)
-    warnings = check_broken_links()
-    if warnings:
-        print(f"\n[WARN] Broken links (warnings only):")
-        for warning in warnings:
-            print(f"  • {warning}")
+    # Collect broken links as warnings (don't fail)
+    try:
+        warnings = check_broken_links()
+        if warnings:
+            for warning in warnings:
+                all_warnings.append(("Broken links", warning))
+    except Exception as e:
+        all_warnings.append(("Broken links check", str(e)))
+
+    # Print formatted output
+    print("\n" + "=" * 72)
 
     if all_violations:
-        print(f"\n[FAIL] {len(all_violations)} governance violation(s) found")
+        print("🚫 COMMIT BLOCKED BY GOVERNANCE")
+        print("=" * 72)
+        print(f"\n[FAIL] Governance violations found ({len(all_violations)} error{'s' if len(all_violations) != 1 else ''}):\n")
+
+        # Group violations by check
+        violations_by_check = {}
+        for check_name, violation in all_violations:
+            if check_name not in violations_by_check:
+                violations_by_check[check_name] = []
+            violations_by_check[check_name].append(violation)
+
+        for check_name, violations in violations_by_check.items():
+            print(f"  {check_name}:")
+            for violation in violations:
+                print(f"    • {violation}")
+            print()
+
+    if all_warnings:
+        print("[WARN] Governance warnings (commit not blocked):\n")
+        for check_name, warning in all_warnings:
+            print(f"  {check_name}:")
+            print(f"    • {warning}")
+            print()
+
+    # Summary
+    print("=" * 72)
+    if all_violations:
+        print(f"[SUMMARY] {len(all_violations)} error{'s' if len(all_violations) != 1 else ''}, "
+              f"{len(all_warnings)} warning{'s' if len(all_warnings) != 1 else ''}.")
+        print("\nFix the errors above and commit again.")
+        print("=" * 72 + "\n")
         sys.exit(1)
     else:
-        print("\n[PASS] All governance checks passed")
+        if all_warnings:
+            print(f"[SUMMARY] 0 errors, {len(all_warnings)} warning{'s' if len(all_warnings) != 1 else ''}. Commit allowed.")
+        else:
+            print("[SUMMARY] All governance checks passed. No errors or warnings.")
+        print("=" * 72 + "\n")
         sys.exit(0)
 
 if __name__ == "__main__":

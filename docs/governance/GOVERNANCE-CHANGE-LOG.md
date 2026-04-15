@@ -10,6 +10,23 @@ Record of changes to governance rules, policies, and enforcement code.
 
 ---
 
+**2026-04-15** – Completed introduction of "governed subtrees" concept: now discoverable in root README and fully documented.
+- Added "Governed Areas" section to root README.md listing all current governed subtrees and their required files.
+- Enhanced GOVERNANCE-RULES.md Section 4 with explicit step-by-step process for adding new governed subtrees in the future.
+- Clarified that GOVERNED_SUBTREES configuration in scripts/governance-check.py is the authoritative source.
+- Rationale: Future-me and AI tools now have a central place (root README) to see which directories are "special areas" with their own structure, without needing to grep the codebase or remember governance rules.
+
+**2026-04-15** – Introduced "governed subtrees" concept and enforced it for docs/governance/.
+- Defined "governed subtree" in GOVERNANCE-RULES.md (Section 4): a directory that functions as its own self-contained system with its own documentation, rules, and change log.
+- docs/governance/ is now the first and only governed subtree. It is required to have all three manifest files:
+  - GOVERNANCE-README.md
+  - GOVERNANCE-RULES.md
+  - GOVERNANCE-CHANGE-LOG.md
+- Added `GOVERNED_SUBTREES` configuration in `scripts/governance-check.py` (top-level constants section) to make it easy to add new governed subtrees in the future.
+- Added Check 4 `check_governed_subtree_manifests()` to enforce that all required manifest files are present in each governed subtree.
+- This is a foundation for future structure: _core/, docs/pipelines/, or other directories can become governed subtrees by declaring their own manifest filenames.
+- Rationale: Some directories may evolve into their own self-contained systems with governance needs. This provides a pattern and enforcement mechanism without forcing boilerplate on every folder.
+
 **2026-04-15** – Comprehensive governance hardening: enforcement is now self-documenting and blocking.
 - Enhanced `scripts/governance-check.py` from 6 to 8 active checks:
   - Check 1: Root-level files (improved messaging)

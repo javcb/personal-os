@@ -34,8 +34,29 @@ ROOT_ALLOWED_FILES = {
     ".gitattributes",      # Git configuration
 }
 
-# Governance singletons: files that must appear exactly once (or not at all)
-# These are reserved names for central governance/structural documents
+# Governed subtrees: directories that function as their own self-contained systems
+# with their own documentation, rules, and change logs.
+# Each subtree has reserved manifest filenames (globally unique) that must appear
+# only within that subtree and must all be present together.
+#
+# To add a new governed subtree (e.g., _core/):
+#   1. Add an entry here with the directory path and manifest filenames
+#   2. Update GOVERNANCE-RULES.md to document the new subtree
+#   3. Update GOVERNANCE-CHANGE-LOG.md with the change
+#
+GOVERNED_SUBTREES = {
+    "docs/governance": {
+        "manifests": {
+            "README": "GOVERNANCE-README.md",
+            "RULES": "GOVERNANCE-RULES.md",
+            "CHANGE_LOG": "GOVERNANCE-CHANGE-LOG.md",
+        },
+        "description": "Personal-os governance layer: rules, philosophy, and change history"
+    },
+}
+
+# Governance singletons: all reserved manifest filenames across all governed subtrees
+# These filenames are globally unique and may only appear in their designated subtrees
 GOVERNANCE_SINGLETONS = {
     "GOVERNANCE-README.md",
     "GOVERNANCE-RULES.md",
@@ -112,8 +133,30 @@ def check_governance_singletons():
 
     return violations
 
+def check_governed_subtree_manifests():
+    """Check 4: Each governed subtree must have all required manifest files"""
+    violations = []
+
+    for subtree_path, config in GOVERNED_SUBTREES.items():
+        subtree_dir = Path(subtree_path)
+        if not subtree_dir.exists():
+            # Subtree directory doesn't exist yet; skip check
+            continue
+
+        manifests = config["manifests"]
+        for manifest_key, manifest_filename in manifests.items():
+            manifest_path = subtree_dir / manifest_filename
+            if not manifest_path.exists():
+                violations.append(
+                    f"Governed subtree '{subtree_path}' missing required manifest: {manifest_filename}. "
+                    f"All manifest files must exist: {', '.join(manifests.values())}. "
+                    f"See docs/governance/GOVERNANCE-RULES.md Section 4."
+                )
+
+    return violations
+
 def check_frontmatter_in_docs():
-    """Check 4: Every .md in docs/ has YAML frontmatter with title, type, status"""
+    """Check 5: Every .md in docs/ has YAML frontmatter with title, type, status"""
     violations = []
     docs_path = Path("docs")
 
@@ -166,7 +209,7 @@ def check_frontmatter_in_docs():
     return violations
 
 def check_build_artifacts():
-    """Check 5: No build artifacts (.log, -REPORT.md)"""
+    """Check 6: No build artifacts (.log, -REPORT.md)"""
     violations = []
 
     for root, dirs, files in os.walk("."):
@@ -182,7 +225,7 @@ def check_build_artifacts():
     return violations
 
 def check_empty_stubs():
-    """Check 6: No empty or stub .md files (must have >= 5 meaningful lines)"""
+    """Check 7: No empty or stub .md files (must have >= 5 meaningful lines)"""
     violations = []
 
     for root, dirs, files in os.walk("."):
@@ -214,7 +257,7 @@ def check_empty_stubs():
     return violations
 
 def check_broken_links():
-    """Check 7: Broken internal markdown links are now failures (not warnings)"""
+    """Check 8: Broken internal markdown links are now failures (not warnings)"""
     violations = []
 
     for root, dirs, files in os.walk("."):
@@ -249,7 +292,7 @@ def check_broken_links():
     return violations
 
 def check_naming_conventions():
-    """Check 8: Markdown filenames follow kebab-case (except reserved names)"""
+    """Check 9: Markdown filenames follow kebab-case (except reserved names)"""
     violations = []
 
     for root, dirs, files in os.walk("."):
@@ -281,6 +324,7 @@ def main():
         ("Root-level files", check_root_md_files),
         ("Duplicate filenames", check_duplicate_filenames),
         ("Governance singletons", check_governance_singletons),
+        ("Governed subtree manifests", check_governed_subtree_manifests),
         ("Docs frontmatter", check_frontmatter_in_docs),
         ("Build artifacts", check_build_artifacts),
         ("Empty stubs", check_empty_stubs),

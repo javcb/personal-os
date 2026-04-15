@@ -68,7 +68,55 @@ Rules are organized by category and split into two groups:
 
 ---
 
-## 4. Durable Documentation & Frontmatter
+## 4. Governed Subtrees
+
+A **governed subtree** is a directory that functions as its own self-contained system with its own documentation, rules, and change log. Each governed subtree has reserved manifest filenames that are globally unique and must appear only within that subtree.
+
+### Active rules
+
+- **docs/governance/** is the first and currently only governed subtree.
+  - **Required files** (all three must exist):
+    - `GOVERNANCE-README.md` — Philosophy and usage of the governance layer
+    - `GOVERNANCE-RULES.md` — All governance rules and how to update them
+    - `GOVERNANCE-CHANGE-LOG.md` — Dated record of governance changes
+  - These filenames are globally unique and may not appear outside this directory.
+  - These files document the governance system itself and must be kept in sync with the enforcement code in `scripts/governance-check.py`.
+
+### How to add a new governed subtree (future)
+
+Other directories (e.g., `_core/`, `docs/pipelines/`) may become governed subtrees in the future if they develop their own rules and documentation.
+
+**To designate a new governed subtree:**
+
+1. In `scripts/governance-check.py`, update the `GOVERNED_SUBTREES` configuration:
+   ```python
+   GOVERNED_SUBTREES = {
+       "docs/governance": { ... },  # existing
+       "your/new/subtree": {
+           "required_files": {
+               "YOUR-README.md",
+               "YOUR-RULES.md",
+               "YOUR-CHANGE-LOG.md",
+           }
+       }
+   }
+   ```
+
+2. Create all required manifest files in that directory with proper YAML frontmatter.
+
+3. Update the "Governed Areas" table in the root `README.md` to list the new subtree.
+
+4. Add an entry to this section (Section 4) in `GOVERNANCE-RULES.md` documenting the new subtree.
+
+5. Update `GOVERNANCE-CHANGE-LOG.md` with a dated entry explaining the new designation.
+
+6. Run `python3 scripts/governance-check.py` to verify all required files exist and enforcement passes.
+
+**Rationale:** Making governed subtrees explicit prevents silent missing documentation and teaches future-me exactly which folders are "special areas" with their own local structure.
+
+---
+
+## 5. Durable Documentation & Frontmatter
 
 ### Active rules
 
@@ -83,7 +131,7 @@ Rules are organized by category and split into two groups:
 
 ---
 
-## 5. Content Quality & File Completeness
+## 6. Content Quality & File Completeness
 
 ### Active rules
 

@@ -32,7 +32,8 @@ def check_duplicate_filenames():
     """Check 2: No duplicate filenames anywhere in the repo"""
     filenames = defaultdict(list)
     violations = []
-    ignore_files = {".gitkeep"}  # Intentional duplicates for directory placeholders
+    # Intentional duplicates: directory-scoped files are allowed (README.md per dir)
+    ignore_files = {".gitkeep", "README.md", "index.md"}
 
     for root, dirs, files in os.walk("."):
         # Skip .git directory

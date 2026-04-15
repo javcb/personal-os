@@ -17,3 +17,6 @@ Reason: GitHub Desktop doesn't inherit shell PATH, causing python3 lookup to fai
 
 [2026-04-15]: Governance verified — pre-commit hook confirmed working; attempted root-level file rejected with clear violation messages.
 Reason: Confirmed the governance layer is functioning end-to-end: violations are detected, reported clearly, and commits are blocked until violations are resolved.
+
+[2026-04-15]: Created meta-skills directory with session-debrief.md and decision-protocol.md — behavior-level, tool-agnostic skill guides.
+Reason: Personal OS needs durable skill definitions that work with any tool (AI or human). Meta-skills are about how to approach work, not what tools to use.

@@ -9,6 +9,8 @@ last-updated: 2026-04-15
 
 Live checklist. Single source of truth for project progress.
 
+> **Returning after time away?** Read `_core/how-to-resume.md` first. It points to the prompt index and tells you today's next action.
+
 ---
 
 ## Phase 0: Foundation (ACTIVE → COMPLETE)

@@ -26,3 +26,9 @@ Reason: Consolidate to single canonical location. CLAUDE.md defines meta-skills 
 
 [2026-04-15]: Improved governance error messaging — blocked commits now clearly explain violations instead of failing opaquely.
 Reason: When governance checks fail, users need to understand what broke and why. Added clear headers ("🚫 COMMIT BLOCKED BY GOVERNANCE"), categorized output by check, separated FAIL (blocks) from WARN (advisory), added summary with error/warning counts. Works with terminal and GitHub Desktop.
+
+[2026-04-15]: Added first operational pipeline and template — knowledge ingestion is the first live machine in personal-os.
+Reason: Personal OS requires executable pipelines that convert external material into durable, context-aware knowledge. Knowledge Ingestion Pipeline is the canonical machine for this work. Created docs/templates/knowledge-extract.md (template for structured extraction) and docs/pipelines/knowledge-ingestion.md (operational spec with triggers, context load, steps, output locations, rules, and failure modes). Both pass governance.
+
+[2026-04-15]: Added how-to-resume and prompt-index files so Future Javier can restart work from inside personal-os without hunting for old threads.
+Reason: Work continuity requires that resumption instructions and prompt locations live in the repo itself, not in separate chat transcripts or external notes. Created _core/how-to-resume.md (daily session pattern, next-action tracking, rules for self) and _core/context/prompt-index.md (pointer map to key prompts without duplicating full prompt text). Added orientation note to _core/roadmap.md. All files pass governance.

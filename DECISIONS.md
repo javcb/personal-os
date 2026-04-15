@@ -14,3 +14,6 @@ Reason: Ensure governance system is active and will prevent accidental structura
 
 [2026-04-15]: Fixed pre-commit hook shebang to #!/bin/sh and added explicit python path detection for GitHub Desktop compatibility.
 Reason: GitHub Desktop doesn't inherit shell PATH, causing python3 lookup to fail; using which to find python explicitly prevents silent failures.
+
+[2026-04-15]: Governance verified — pre-commit hook confirmed working; attempted root-level file rejected with clear violation messages.
+Reason: Confirmed the governance layer is functioning end-to-end: violations are detected, reported clearly, and commits are blocked until violations are resolved.

@@ -1,142 +1,133 @@
 ---
-title: roadmap
+title: Roadmap
 type: context
 status: active
 last-updated: 2026-04-15
+current-phase-name: LLM Interface Layer v0 Implementation & Validation
 ---
 
-# Personal OS Roadmap
+# Roadmap
 
-Live checklist. Single source of truth for project progress.
+Live, resumable checklist. Single source of truth for phase-aware project progress.
 
-> **Returning after time away?** Read `_core/how-to-resume.md` first. It points to the prompt index and tells you today's next action.
-
----
-
-## Phase 0: Foundation (ACTIVE → COMPLETE)
-
-### Repo Structure & Governance
-- [x] personal-os repo created on GitHub
-- [x] Directory structure: _core/, docs/, scripts/, .github/
-- [x] .gitkeep files for all empty directories
-- [x] scripts/governance-check.py implemented (6-point check)
-- [x] scripts/sync-check.py implemented (duplicate detection)
-- [x] scripts/backup.py implemented (timestamped backups)
-- [x] .git/hooks/pre-commit wired to governance-check.py
-- [x] Pre-commit hook verified working (rejection tested)
-- [x] mkdocs.yml configured with Material theme
-- [x] .github/workflows/deploy-docs.yml configured
-
-### Core Context Vault
-- [x] _core/self-model.md (stub with frontmatter)
-- [x] _core/quadrants.md (stub with frontmatter)
-- [x] _core/models.md (stub with frontmatter)
-- [x] _core/initiatives.md (stub with frontmatter)
-- [x] _core/emergency.md (3-line minimum, frontmatter)
-- [x] _core/roadmap.md (this file)
-
-### Metadata & Governance
-- [x] README.md (project overview)
-- [x] CLAUDE.md (AI constitution with file placement tree)
-- [x] inbox.md (dated capture zone)
-- [x] DECISIONS.md (decision log with 5+ entries)
-- [x] .gitattributes added to root whitelist
-- [x] governance-check.py whitelist updated
-
-### Meta-Skills
-- [x] docs/skills/_custom/session-debrief.md created
-- [x] docs/skills/_custom/decision-protocol.md created
-- [x] docs/meta-skills/ duplicates removed and logged
-
-### Verification
-- [x] All governance checks passing (exit code 0)
-- [x] Pre-commit hook blocks violations
-- [x] DECISIONS.md logged all structural decisions
-- [x] CLAUDE.md serves as AI guardrails
+> **Returning after time away?** Read this roadmap first to see current phase, next priorities, blockers, and re-entry breadcrumbs.
 
 ---
 
-## Phase 1: Content Population
+## Current Phase
 
-### Populate _core/ (Human Chisel Work)
-- [ ] _core/self-model.md: roles, priorities, goals, constraints
-- [ ] _core/quadrants.md: KK/KU/BL/UK knowledge matrix
-- [ ] _core/models.md: mental models, cognitive frameworks
-- [ ] _core/initiatives.md: active projects and milestones
-- [ ] _core/emergency.md: critical procedures, escalation paths
-- [ ] _core/roadmap.md: quarterly OKRs and milestones (link from here)
+**Phase Name:** LLM Interface Layer v0 Implementation & Validation  
+**Status:** in-progress  
+**Started:** 2026-04-10  
+**Target Completion:** 2026-04-20  
+**Rationale:** Complete the LLM operating layer (CLAUDE.md + 3 meta-skills + roadmap schema) so LLMs can operate autonomously while respecting governance. This unblocks real-world testing and enables feedback loops.
 
-### Domain Structure
-- [ ] docs/domains/ organized by 9 domains (define them)
-- [ ] Stub README.md in each domain directory
+### Completed in This Phase
+- [x] **Governance v1 Foundation** — 9 enforcement checks, governed subtrees pattern, repository immune to structural degradation
+- [x] **CLAUDE.md** — AI constitution with governance rules, file placement tree, internal-first-research protocol, how to end sessions
+- [x] **phase-wrap-up meta-skill** — formalize phase transitions, document stopping points, leave resumable re-entry
+- [x] **internal-first-research meta-skill** — operationalize research protocol (repo first, then external)
+- [x] **session-debrief meta-skill** — extract durable takeaways, structured repo-update proposals
+- [x] **_core/roadmap.md schema design** — current phase, next phase queue, blockers, re-entry breadcrumbs, deferrals
+- [x] **_core/roadmap.md created** — populated with current state and next priorities
+- [x] **CLAUDE.md examples** — added "Example: Session Debrief + Roadmap Update" showing integration
 
-### Inbox Workflow
-- [ ] Inbox review process defined (weekly cadence)
-- [ ] First 50 captures moved from inbox.md to permanent homes
+### In Progress
+- [ ] Run a real session using all meta-skills + roadmap together to validate integration and identify gaps
 
----
-
-## Phase 2: Knowledge Extraction & Integration
-
-### Ingest External Sources
-- [ ] docs/knowledge-extracts/ populated from reading/research
-- [ ] Reference pointers documented (links to authoritative sources)
-- [ ] docs/domains/ enriched with domain knowledge
-
-### Pipelines & Workflows
-- [ ] docs/pipelines/ defined for key workflows
-- [ ] Trigger → output relationships documented
-- [ ] docs/skills/ populated with how-to guides
-
-### Templates
-- [ ] docs/templates/ seeded with reusable formats
-- [ ] Session templates, decision templates, etc.
+### Known Blockers or Dependencies
+- None. All governance blocks resolved. Ready to validate in practice.
 
 ---
 
-## Phase 3: Automation & Scaling
+## Next Phase (Prioritized Queue)
 
-### Backup & Versioning
-- [ ] Backup script automated (cron or scheduler)
-- [ ] Version history in ~/backups/personal-os/ verified
+**Phase Name:** Domain Expansion & Knowledge Ingestion  
+**Estimated Start:** 2026-04-21  
+**Rationale:** With the LLM interface layer stable, expand into specific domains (finance, operations, product, etc.) and build knowledge ingestion pipelines. This makes personal-os domain-aware and prevents context loss.
 
-### Search & Discovery
-- [ ] MkDocs site builds and deploys (GitHub Pages)
-- [ ] Full-text search across all domains
-- [ ] Cross-domain reference indices
+### Priority 1 (First)
+- [ ] Define primary domains (finance, operations, product, strategy, etc.)
+- [ ] Create domain-specific canon in docs/domains/
+- [ ] Build knowledge-ingestion pipeline (external sources → docs/knowledge-extracts/)
+- [ ] Create first domain model and add to _core/models.md
 
-### CI/CD
-- [ ] GitHub Actions deploy-docs.yml tested
-- [ ] Governance checks run on every PR
-- [ ] sync-check.py detects duplicates in CI
+### Priority 2 (Then)
+- [ ] Test knowledge-ingestion pipeline with real external sources
+- [ ] Refine domain boundaries based on actual Javier use cases
+- [ ] Build feedback loop: session-debrief proposes new knowledge → pipeline ingests
+- [ ] Document domain-specific workflows in docs/workflows/
 
----
-
-## Phase 4: Sustainability & Evolution
-
-### Documentation
-- [ ] Contributing guide for future updates
-- [ ] Maintenance checklist (quarterly review)
-- [ ] Archival strategy for deprecated content
-
-### Metrics & Health
-- [ ] Inbox queue health (size, age)
-- [ ] Decision log review (quarterly)
-- [ ] Domain coverage assessment
-
-### Refinement
-- [ ] CLAUDE.md refined based on real usage
-- [ ] Meta-skill library expanded
-- [ ] Governance rules adjusted as needed
+### Priority 3 (After that)
+- [ ] Add domain enforcement to governance (prevent orphan docs)
+- [ ] Create domain-specific meta-skills
+- [ ] Build first real-world project using LLM interface + domains
 
 ---
 
-## Blocked / To-Revisit
+## Explicitly Deferred (Not Doing Now)
 
-- (none currently)
+### Deferred to "LLM Interface v1"
+- **pre-action-critique meta-skill** — Valuable for major decisions, but deferred until current patterns stabilize. Will add after 5–10 real sessions.
+- **Roadmap as governed subtree** — Would add ROADMAP-README.md with versioning rules; better to wait and validate pattern first.
+- **Multi-track roadmaps** — Tempting for parallel domains; premature for v0. Single roadmap is sufficient.
+
+### Deferred / Under Discussion
+- **Automated roadmap generation from debrief** — Keep roadmap human-curated so Javier retains control.
+- **Roadmap UI/dashboard** — Text file is sufficient for v0; web interface later if needed.
+- **Authorship tracking in debrief** — Not required for v0; can add metadata later.
+- **Content-level governance rules** — Parked in governance backlog (Phase 0 decision).
+
+### Open Questions / Decisions Awaiting
+- **Domain vs. Initiative organization:** Should we organize knowledge by domain (finance, ops) or by initiative (project X, project Y)? → Decide after first domain is created.
+- **Feedback loop automation:** How much of session-debrief → roadmap → repo update should be automated vs. human-reviewed? → Validate through real sessions first.
 
 ---
 
-## Last Updated
+## Re-entry Breadcrumbs
 
-2026-04-15 — Phase 0 complete. Phase 1 beginning.
+**Last Session Left Off At:**  
+Completed LLM interface layer v0 design and implementation. All meta-skills created and in place. CLAUDE.md comprehensive and validated. _core/roadmap.md created with new schema and populated. Ready to use in practice.
+
+**Immediately Resume With:**  
+Run a real, full session using CLAUDE.md, internal-first-research, session-debrief, and this roadmap. Test the complete loop: work → debrief → roadmap update proposal → human review. Identify integration gaps and refine patterns.
+
+**Context Snapshot:**  
+Personal-os now has a complete LLM operating layer. CLAUDE.md defines governance and operating rules. Three meta-skills (phase-wrap-up, internal-first-research, session-debrief) encode repeatable patterns. _core/roadmap.md provides phase-aware structure for resumability. Governance layer (9 checks, governed subtrees) is frozen at v1. Foundation is stable. Next phase is domain expansion and knowledge ingestion.
+
+---
+
+## Metadata for LLMs
+
+**How to Update This Roadmap:**
+- phase-wrap-up outputs feed directly: "Completed" items → move to "Completed in This Phase"; "Remaining Work" → add to "In Progress" or next phase; "Re-entry Point" → update "Re-entry Breadcrumbs".
+- session-debrief proposals that affect priorities → let Javier decide → then update roadmap.
+- **Never edit roadmap directly. Always propose changes via session-debrief.**
+
+**When to Consult Roadmap:**
+- At session start: read current phase, next priorities, blockers, and re-entry breadcrumbs.
+- During work: if a discovery changes priorities, note it for session-debrief.
+- At session end: phase-wrap-up proposes updates; Javier reviews and edits asynchronously.
+
+---
+
+## Historical Phases (Reference)
+
+**Phase 0: Foundation** — Completed 2026-04-15  
+Repo structure, governance (9 checks), core context vault, CLAUDE.md, meta-skills foundation.
+
+**Phase 1: Content Population** — Deferred to after Domain Expansion  
+Will populate _core/ files (human chisel work), domain structure, inbox workflow once domain boundaries are clear.
+
+**Phase 2: Knowledge Extraction & Integration** — Follows Domain Expansion  
+Ingest external sources, build pipelines, populate knowledge-extracts.
+
+**Phase 3: Automation & Scaling** — Future  
+Backup automation, search/discovery, CI/CD enhancements.
+
+**Phase 4: Sustainability & Evolution** — Future  
+Documentation, metrics, refinement cycles.
+
+---
+
+*Last updated: 2026-04-15*

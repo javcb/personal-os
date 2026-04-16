@@ -249,6 +249,35 @@ These outputs are the **primary mechanism** by which the system:
 
 **Do not skip these.** They are the connective tissue.
 
+### Example: Session Debrief + Roadmap Update
+
+This example shows how a session-debrief proposal flows into _core/roadmap.md updates.
+
+**Session-Debrief Output (from a hypothetical session):**
+
+```
+## Session Debrief — 2026-04-20
+
+- [TYPE: decision]
+  - Summary: Decided to defer pre-action-critique meta-skill to v1; current 3 meta-skills (phase-wrap-up, internal-first-research, session-debrief) are sufficient foundation.
+  - Why durable: Establishes boundary for v0 scope; prevents scope creep; allows validation without overcomplicating.
+  - Suggested destination: DECISIONS.md
+  - Relation to canon: confirm (aligns with deferred items in _core/roadmap.md and governance backlog).
+
+- [TYPE: process]
+  - Summary: Discovered that roadmap updates should always flow through session-debrief, never direct LLM edits.
+  - Why durable: Prevents accidental inconsistency; ensures Javier reviews all priorities; maintains human control.
+  - Suggested destination: docs/skills/_custom/roadmap-integration.md or CLAUDE.md "Example" section.
+  - Relation to canon: extends canon (clarifies LLM interface pattern).
+```
+
+**How Javier would update _core/roadmap.md based on this debrief:**
+
+1. The first debrief item (decision) → Already captured in _core/roadmap.md "Explicitly Deferred" section; nothing to update.
+2. The second debrief item (process) → Documentation note for future; no roadmap change needed; could update CLAUDE.md examples (which we did).
+
+If the debrief had proposed moving a task from "In Progress" to "Completed," Javier would update _core/roadmap.md accordingly.
+
 ---
 
 ## YAML Type Registry

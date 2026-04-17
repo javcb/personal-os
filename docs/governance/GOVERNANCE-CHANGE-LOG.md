@@ -10,6 +10,13 @@ Record of changes to governance rules, policies, and enforcement code.
 
 ---
 
+**2026-04-17** – Added Roadmap Governance rule.
+- Added Section 7 to GOVERNANCE-RULES.md: "Roadmap Governance" documenting that `_core/roadmap.md` is human-curated.
+- Clarified that LLMs may propose updates via session-debrief output, but Javier reviews and edits the file directly.
+- Automated generation or direct LLM edits to roadmap are not permitted.
+- Enforcement: convention-only in v1 (not script-enforced). Revisit for script enforcement in later governance version if violations occur.
+- Rationale: Roadmap prioritization is a human judgment call. This rule preserves Javier's agency over system direction and prevents autonomous re-prioritization.
+
 **2026-04-15** – Governance v1 finalized and scope frozen.
 - Documented Governance v1 as the complete current scope: structural checks (root files, unique names, frontmatter, links, naming) + governed subtrees (docs/governance/ only).
 - Created "Not Yet Governed (Explicitly Deferred)" section in GOVERNANCE-RULES.md documenting backlog items: _core/ subtree, review-by enforcement, type-specific schemas, no-orphan-docs rules, additional subtrees, content linting, etc.

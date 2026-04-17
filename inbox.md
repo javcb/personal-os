@@ -9,3 +9,10 @@ Review this periodically and move captures into proper locations.
 
 Repository structure initialized. All governance checks passing.
 Ready to begin populating knowledge base and context vault.
+
+## 2026-04-17
+
+[inbox] [meta-skill-integration] [roadmap-governance] [Phase-2-consideration] [session:2026-04-17]
+Consider whether _core/roadmap.md should be a governed subtree (with ROADMAP-README.md
+explaining versioning and update rules). Deferred for now — revisit after 5 real sessions
+to see if the pattern stabilizes before adding governance overhead.

@@ -35,3 +35,9 @@ Reason: Work continuity requires that resumption instructions and prompt locatio
 
 [2026-04-15]: Froze governance at v1 (structural hygiene + docs/governance subtree) and parked governance backlog intentionally.
 Reason: Governance v1 covers structure and place (file layout, naming, frontmatter, link integrity, governed subtrees). Content-level rules (_core/ subtree, review-by dates, type-specific schemas, orphan-doc detection) are valid but deferred so other work (LLM interfaces, feedback loops, domain expansion) can proceed without constant governance churn. Backlog is explicit and prioritized in GOVERNANCE-RULES.md so Future Javier can pick items deliberately rather than reactively adding checks mid-stream.
+
+[2026-04-17]: _core/roadmap.md is canonical for current state + next priorities; LLMs read it at session start, propose updates via session-debrief, Javier reviews and edits directly.
+Reason: Roadmap is the primary resumption mechanism for LLMs. Centralizing state and priorities in a single, structured document eliminates context reconstruction overhead. LLMs become proposal generators, not decision-makers; Javier retains full control over priorities and direction.
+
+[2026-04-17]: Roadmap stays human-curated — session-debrief proposes changes, Javier decides; do not automate roadmap generation from debrief output.
+Reason: Automation risks removing prioritization decisions from human control. Roadmap updates involve judgments about tradeoffs, sequencing, and resource allocation that should remain with Javier. Manual curation preserves agency and ensures the system reflects actual intentions, not algorithm defaults.

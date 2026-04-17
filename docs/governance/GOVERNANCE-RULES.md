@@ -183,6 +183,26 @@ Other directories (e.g., `_core/`, `docs/pipelines/`) may become governed subtre
 
 ---
 
+## 7. Roadmap Governance
+
+### Active rules
+
+- **`_core/roadmap.md` is human-curated.** LLMs may propose updates via session-debrief output, but Javier reviews and edits the file directly.
+- **Automated generation or direct LLM edits to roadmap are not permitted.**
+- LLMs read the roadmap at session start to understand current phase and priorities.
+- LLM proposals to update roadmap flow through session-debrief structured format (see `/docs/skills/_custom/session-debrief.md`).
+- Javier reviews all debrief proposals and decides whether to update the roadmap asynchronously.
+
+### Rationale
+
+Roadmap prioritization is a human judgment call. Prioritization decisions involve tradeoffs, sequencing, and resource allocation that require human judgment and context. Keeping the roadmap human-curated preserves Javier's agency over system direction and prevents the system from autonomously re-prioritizing work based on local optimization.
+
+### Enforcement
+
+**Convention only** (not script-enforced in Governance v1). LLMs are expected to follow this rule by design (session-debrief output is structured for human review, not automatic application). Revisit for script enforcement in a later governance version if violations occur.
+
+---
+
 ## How to Update These Rules
 
 1. If you're adding a new **active rule** (code enforcement):

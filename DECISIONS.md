@@ -41,3 +41,12 @@ Reason: Roadmap is the primary resumption mechanism for LLMs. Centralizing state
 
 [2026-04-17]: Roadmap stays human-curated — session-debrief proposes changes, Javier decides; do not automate roadmap generation from debrief output.
 Reason: Automation risks removing prioritization decisions from human control. Roadmap updates involve judgments about tradeoffs, sequencing, and resource allocation that should remain with Javier. Manual curation preserves agency and ensures the system reflects actual intentions, not algorithm defaults.
+
+[2026-04-17]: Defined 9 core domains based on self-model roles: finance-economics, family-parenting, operations-systems, governance-policy, software-development, professional-advisory, learning-research, legal-regulatory, strategy-planning.
+Reason: The self-model states work happens "across nine domains." These domains map to Javier's core roles and provide organizational structure for personal-os. Each domain will have a context file in docs/domains/ defining scope, rules, and autonomy boundaries.
+
+[2026-04-17]: Organize personal-os by domain (not by initiative) — domain files in docs/domains/ are the primary context layer; cross-domain knowledge lives in _core/; initiatives are tracked in _core/initiatives.md.
+Reason: Domain organization aligns with Javier's roles and the nine-domain structure already implicit in self-model. Domains are stable (tied to roles); initiatives are temporal (tied to projects). Separating them prevents knowledge fragmentation. Initiatives reference domains as context.
+
+[2026-04-17]: autonomy-matrix.md is a prerequisite before domain files are created — it defines per-domain LLM autonomy boundaries that domain files will reference.
+Reason: LLMs working in any domain need to know what they can do autonomously (analysis, drafting) vs. what requires human review (execution, final decisions). The autonomy-matrix establishes this boundary explicitly. Domain files will reference specific matrix rows. This prevents silent scope creep and ensures consistent governance across all domains.

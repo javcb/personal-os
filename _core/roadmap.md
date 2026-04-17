@@ -79,7 +79,7 @@ Live, resumable checklist. Single source of truth for phase-aware project progre
 - **Content-level governance rules** — Parked in governance backlog (Phase 0 decision).
 
 ### Open Questions / Decisions Awaiting
-- **Domain vs. Initiative organization:** Should we organize knowledge by domain (finance, ops) or by initiative (project X, project Y)? → Decide after first domain is created.
+- **Domain vs. Initiative organization:** → RESOLVED 2026-04-17. Organize by domain. See DECISIONS.md. Domain files in docs/domains/ are primary context layer; initiatives tracked in _core/initiatives.md; _core/ holds cross-domain knowledge.
 - **Feedback loop automation:** How much of session-debrief → roadmap → repo update should be automated vs. human-reviewed? → Validate through real sessions first.
 
 ---

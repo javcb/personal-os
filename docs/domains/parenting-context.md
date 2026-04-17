@@ -231,7 +231,7 @@ Student does the work; I scaffold and teach.
 
 | Doc | Relevance |
 |---|---|
-| `GLOBAL-CONTEXT.md` | Hard rules (no safety decisions without professional advice) |
+| `global-context.md` | Hard rules (no safety decisions without professional advice) |
 | `autonomy-matrix.md` | Parenting autonomy (advisory-only for major decisions) |
 | Educational standards (if applicable) | Subject curriculum and learning goals |
 

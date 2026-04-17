@@ -231,7 +231,7 @@ Advisory on feasibility; execution on implementation.
 
 | Doc | Relevance |
 |---|---|
-| `GLOBAL-CONTEXT.md` | Hard rules (no major changes without approval, privacy protection) |
+| `global-context.md` | Hard rules (no major changes without approval, privacy protection) |
 | `autonomy-matrix.md` | Personal-processes autonomy (execute after confirmation) |
 | Productivity and organization methods | Process improvement resources |
 

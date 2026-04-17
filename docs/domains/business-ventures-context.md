@@ -211,7 +211,7 @@ You revise and deliver the pitch. I never send it on your behalf.
 
 | Doc | Relevance |
 |---|---|
-| `GLOBAL-CONTEXT.md` | Hard rules on credentials, financial data, irreversible actions |
+| `global-context.md` | Hard rules on credentials, financial data, irreversible actions |
 | `autonomy-matrix.md` | Business-ventures autonomy levels |
 | `docs/architecture/hub-and-spoke-model.md` | For org-level business planning |
 | `standards/naming.md` | For business documentation naming |

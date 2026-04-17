@@ -29,6 +29,7 @@ if sys.platform == "win32":
 ROOT_ALLOWED_FILES = {
     "README.md",           # Repo overview
     "CLAUDE.md",           # AI tool instructions
+    "global-context.md",   # System-wide constitution and non-negotiable rules
     "inbox.md",            # Unprocessed ideas
     "DECISIONS.md",        # Architectural decision log
     ".gitattributes",      # Git configuration

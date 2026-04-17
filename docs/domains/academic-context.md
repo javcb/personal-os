@@ -255,7 +255,7 @@ Full autonomy—this supports your learning, not replaces it.
 
 | Doc | Relevance |
 |---|---|
-| `GLOBAL-CONTEXT.md` | Hard rules (no misrepresenting learning, academic integrity paramount) |
+| `global-context.md` | Hard rules (no misrepresenting learning, academic integrity paramount) |
 | `autonomy-matrix.md` | Academic autonomy (advisory-only for major decisions) |
 | Program syllabus and rubrics | Assignment requirements and standards |
 | Citation standard guide | Proper citation format (APA/Chicago/Harvard) |

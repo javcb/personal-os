@@ -53,7 +53,7 @@ These are valid future enhancements but are parked to keep Governance v1 lean an
 ### Active rules
 
 - All `.md` files in `docs/` must have YAML frontmatter with (at minimum) `title`, `type`, and `status` fields.
-- `.md` files at the root level are forbidden, except: `README.md`, `CLAUDE.md`, `inbox.md`, `DECISIONS.md`, and `.gitattributes`.
+- `.md` files at the root level are forbidden, except: `README.md`, `CLAUDE.md`, `global-context.md`, `inbox.md`, `DECISIONS.md`, and `.gitattributes`.
 - Build artifacts are forbidden: no files ending in `.log` or `-REPORT.md` anywhere in the repo.
 - Governance singleton files (`GOVERNANCE-README.md`, `GOVERNANCE-RULES.md`, `GOVERNANCE-CHANGE-LOG.md`) must be located exclusively in `docs/governance/`.
 - Broken internal markdown links now block commits (enforced via `check_broken_links`).
@@ -73,6 +73,7 @@ These are valid future enhancements but are parked to keep Governance v1 lean an
 - Allowed at root:
   - `README.md` — repo overview
   - `CLAUDE.md` — project instructions for Claude / AI tools
+  - `global-context.md` — system-wide constitution and non-negotiable rules
   - `inbox.md` — capture-only inbox for unprocessed ideas
   - `DECISIONS.md` — structured log of architectural decisions
   - `.gitattributes` — git configuration

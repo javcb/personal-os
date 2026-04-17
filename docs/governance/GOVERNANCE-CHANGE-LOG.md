@@ -10,6 +10,12 @@ Record of changes to governance rules, policies, and enforcement code.
 
 ---
 
+**2026-04-17** – Added system-wide constitution file (global-context.md) to root allowlist.
+- Added `global-context.md` to Section 2 (Root-Level Files) and Section 1 (Repository Layout) of GOVERNANCE-RULES.md.
+- Renamed from uppercase `global-context.md` to lowercase `global-context.md` to comply with kebab-case naming convention.
+- Rationale: `global-context.md` is a system-wide constitution file containing non-negotiable rules and constraints for all LLM work. It needs to be at the root level for visibility and easy loading at the start of every session. It is referenced by `_core/self-model.md` as the authoritative source for hard operating rules and privacy constraints.
+- Enforcement: Pre-commit hook continues to block any changes; all checks now pass.
+
 **2026-04-17** – Added Roadmap Governance rule.
 - Added Section 7 to GOVERNANCE-RULES.md: "Roadmap Governance" documenting that `_core/roadmap.md` is human-curated.
 - Clarified that LLMs may propose updates via session-debrief output, but Javier reviews and edits the file directly.

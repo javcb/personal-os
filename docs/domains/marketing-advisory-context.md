@@ -216,7 +216,7 @@ This domain is almost entirely strategy and research. Execution is organizing fi
 
 | Doc | Relevance |
 |---|---|
-| `GLOBAL-CONTEXT.md` | Hard rules (you own external comms, no spending without approval) |
+| `global-context.md` | Hard rules (you own external comms, no spending without approval) |
 | `domains/business-advisory-context.md` | Contrast: business vs. marketing strategy |
 | `standards/` | Writing and documentation standards |
 

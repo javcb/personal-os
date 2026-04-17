@@ -231,7 +231,7 @@ Advisory—time commitment is your decision.
 
 | Doc | Relevance |
 |---|---|
-| `GLOBAL-CONTEXT.md` | Hard rules (no external comms without approval, no binding commitments) |
+| `global-context.md` | Hard rules (no external comms without approval, no binding commitments) |
 | `autonomy-matrix.md` | Volunteer autonomy (low—you decide major commitments) |
 | Nonprofit/volunteer best practices | Organizational standards |
 

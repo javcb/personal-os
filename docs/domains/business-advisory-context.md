@@ -213,7 +213,7 @@ This domain is almost entirely analysis and research. Execution is minimal (most
 
 | Doc | Relevance |
 |---|---|
-| `GLOBAL-CONTEXT.md` | Hard rules (no financial decisions, you own external comms) |
+| `global-context.md` | Hard rules (no financial decisions, you own external comms) |
 | `domains/business-ventures-context.md` | Contrast: your own ventures vs. advising others |
 | `standards/` | Research and citation standards |
 

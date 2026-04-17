@@ -230,7 +230,7 @@ This domain is mostly research and analysis. Execution is organizing findings fo
 
 | Doc | Relevance |
 |---|---|
-| `GLOBAL-CONTEXT.md` | Hard rules (no financial transactions, you own all decisions) |
+| `global-context.md` | Hard rules (no financial transactions, you own all decisions) |
 | `domains/business-ventures-context.md` | Contrast: your ventures vs. financial advisory |
 | `domains/business-advisory-context.md` | Similar advisory structure |
 

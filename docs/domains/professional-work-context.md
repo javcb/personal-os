@@ -243,7 +243,7 @@ Skills used: Execution skills (block-intake, code writing, component creation) +
 
 | Doc | Relevance |
 |---|---|
-| `GLOBAL-CONTEXT.md` | Hard rules (no main commits, no public shipping without approval) |
+| `global-context.md` | Hard rules (no main commits, no public shipping without approval) |
 | `autonomy-matrix.md` | Professional-work autonomy levels |
 | `docs/architecture/skill-architecture.md` | How skills work in this domain |
 | `docs/architecture/design-system-architecture.md` | Design system structure |

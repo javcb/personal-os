@@ -89,6 +89,45 @@ are upgrades.
 
 ---
 
+## LLM Interface & Systems Design
+
+### Epistemic Filter
+External information should be interpreted *through* this system's existing models,
+decisions, and canon — not in isolation. When encountering new ideas, check what
+the system already knows first. Accept information that extends canon; flag and investigate
+information that conflicts with canon.
+
+### Governed Subtrees Pattern
+Some directories function as self-contained systems with their own documentation, rules,
+and change logs (manifest files). This pattern allows specialized governance in specific
+areas without forcing boilerplate on every folder. Declare subtree requirements explicitly;
+enforce them automatically.
+
+### Autonomy Matrix for Human-AI Division
+For each domain, specify what LLMs can do autonomously (Analysis, Drafting, Execution)
+vs. what requires human review/decision (Final Decision). This prevents scope creep
+and makes boundaries explicit. Conservative by default; upgrade to higher autonomy
+only after validation through actual use.
+
+### Meta-Skills as Operating System
+Repeatable workflows encode better as portable meta-skills (how to approach work)
+rather than procedural docs (what tool to use). Meta-skills survive tool changes;
+procedures become stale. Meta-skills are the OS layer; domain-specific pipelines
+are applications.
+
+### Extraction Over Summary in Knowledge Ingestion
+Knowledge ingestion goal is not to produce a passive summary (archive) but to identify
+what changed your mental models (upgrade). Ask: what was I wrong about? What now
+makes more sense? What new framework do I now trust? Summaries are dead; extractions live.
+
+### Roadmap Governance Rule
+Roadmap is human-curated. LLMs may propose updates via session-debrief structured
+format, but Javier reviews and edits directly. No automation of roadmap generation
+from debrief output. Prioritization decisions involve tradeoffs and context that
+require human judgment.
+
+---
+
 ## [JAVIER TO FILL: Parenting / Family Models]
 
 Add 1–2 frameworks you actually use when making parenting or family decisions.

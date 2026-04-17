@@ -40,6 +40,14 @@ Things I know and can rely on in decision-making.
 - Unknown unknowns are the most dangerous; tag BL aggressively.
 - Frictionless capture is prerequisite to anything else.
 
+### LLM Interface & Systems Design
+- LLM interface layer (CLAUDE.md + meta-skills + roadmap) successfully designed and validated.
+- Autonomy matrix pattern works: explicit per-domain boundaries prevent scope creep.
+- Governance v1 (9 checks, governed subtrees) prevents structural degradation.
+- Meta-skills encode repeatable workflows better than procedural docs.
+- Roadmap governance: LLMs propose via session-debrief, humans decide. No automation of priorities.
+- Domain organization by role (not initiative) is correct for cross-domain knowledge systems.
+
 ### Family & Parenting
 - Family stability and financial resilience are the non-negotiables everything
   else is sequenced around.
@@ -49,6 +57,16 @@ Things I know and can rely on in decision-making.
 
 Things I know I don't know and am actively trying to understand.
 
+- [session:2026-04-17] Will the personal-os system actually work in practice with real sessions,
+  or will usage reveal critical design flaws?
+- [session:2026-04-17] Do the 9 domains capture the actual work, or will real usage
+  reveal domains that need splitting, merging, or renaming?
+- [session:2026-04-17] How to ensure system legibility for wife and collaborators
+  without creating extra documentation overhead?
+- [session:2026-04-17] How to automate knowledge ingestion pipelines without
+  introducing governance debt or requiring constant maintenance?
+- [session:2026-04-17] What happens to system coherence if Javier takes a long break?
+  How quickly can work resume?
 - [JAVIER TO FILL: e.g., "How do I structure my advisory practice for scalability
   without adding unsustainable overhead?"]
 - [JAVIER TO FILL: e.g., "What is the right college savings strategy given
@@ -75,6 +93,18 @@ Tag new entries: `[quadrant:BL] [session:YYYY-MM-DD]`
   "what will I regret not doing now?"
 - [quadrant:BL] [session:2026-04-15] Meta-skills are the OS, not a convenience.
   Without them, autonomous workflows degrade into inconsistent, memory-dependent habits.
+- [quadrant:BL] [session:2026-04-17] Core context files (_core/quadrants, models, initiatives)
+  need substantive content to unlock pipelines. Template files that are only stubs
+  create a bootstrap problem: pipelines need context to run, but context requires
+  knowing what to fill in.
+- [quadrant:BL] [session:2026-04-17] "What changed" vs "what is the summary" distinction
+  for knowledge extraction. Summaries are passive archives; extractions that identify
+  what changed your thinking are what upgrades mental models. This distinction changes
+  how knowledge ingestion pipelines should work.
+- [quadrant:BL] [session:2026-04-17] Epistemic filter concept: external information
+  interpreted through system canon, not in isolation. Personal-os should actively
+  reject information that doesn't fit existing models or explicitly update models
+  when new information conflicts. This is different from passive curation.
 
 ## Known Unknowables
 
@@ -92,3 +122,8 @@ When a KU becomes a KK, log it here.
 |---|---|---|---|---|
 | 2026-04-15 | AI entropy / governance | BL | KK | Design session: built governance-check.py |
 | 2026-04-15 | Meta-skills as OS layer | BL | KK | Design session: encoded as SKILL files |
+| 2026-04-17 | LLM interface layer design | KU | KK | Design session: CLAUDE.md + 3 meta-skills + roadmap validated |
+| 2026-04-17 | Autonomy matrix pattern | KU | KK | Design session: implemented in docs/governance/autonomy-matrix.md |
+| 2026-04-17 | Domain organization by role | KU | KK | Design session: 9 domains created in docs/domains/ |
+| 2026-04-17 | Governance v1 is sufficient | KU | KK | Design session: 9 enforcement checks verified via governance-check.py |
+| 2026-04-17 | Roadmap governance rule | KU | KK | Design session: codified in GOVERNANCE-RULES.md Section 7 |

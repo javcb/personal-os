@@ -1,7 +1,7 @@
-site_name: Personal OS
+site_name: personal-os
 site_description: A private personal knowledge system built on GitHub + MkDocs
 site_author: javcb
-docs_dir: docs
+docs_dir: .
 site_dir: site
 
 theme:
@@ -26,19 +26,20 @@ theme:
     - content.code.copy
 
 nav:
-  - Home: index.md
-  - Domains: domains/
-  - Knowledge Extracts: knowledge-extracts/
-  - Pipelines: pipelines/
-  - Skills: skills/
-  - Templates: templates/
+  - Home: README.md
+  - Core: _core/
+  - Domains: docs/domains/
+  - Pipelines: docs/pipelines/
+  - Governance: docs/governance/
+  - Knowledge: docs/knowledge-extracts/
 
 plugins:
   - search
   - exclude:
       glob:
-        - _core/*
+        - inbox.md
         - "*/.gitkeep"
+        - "**/*emergency*"
 
 markdown_extensions:
   - abbr
@@ -65,6 +66,3 @@ markdown_extensions:
   - pymdownx.tasklist:
       custom_checkbox: true
   - pymdownx.tilde
-
-exclude_docs: |
-  _core/
